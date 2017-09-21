@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="Project"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="/home/user/mq_libraries/ShmAtomicMsgQueue/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j2 -f &quot;/home/user/mq_libraries/ShmAtomicMsgQueue/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/gmake -j2 -f &quot;/home/user/mq_libraries/ShmAtomicMsgQueue/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j2 -f &quot;/home/user/mq_libraries/ShmAtomicMsgQueue/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j2 -f &quot;/home/user/mq_libraries/ShmAtomicMsgQueue/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="/home/user/mq_libraries/ShmAtomicMsgQueue/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j2 -f &quot;/home/user/mq_libraries/ShmAtomicMsgQueue/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/gmake -j2 -f &quot;/home/user/mq_libraries/ShmAtomicMsgQueue/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j2 -f &quot;/home/user/mq_libraries/ShmAtomicMsgQueue/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j2 -f &quot;/home/user/mq_libraries/ShmAtomicMsgQueue/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="/home/user/mq_libraries/ShmAtomicMsgQueue/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j2 -f &quot;/home/user/mq_libraries/ShmAtomicMsgQueue/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/gmake -j2 -f &quot;/home/user/mq_libraries/ShmAtomicMsgQueue/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j2 -f &quot;/home/user/mq_libraries/ShmAtomicMsgQueue/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j2 -f &quot;/home/user/mq_libraries/ShmAtomicMsgQueue/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="list_install_components">
+				<Option working_dir="/home/user/mq_libraries/ShmAtomicMsgQueue/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j2 -f &quot;/home/user/mq_libraries/ShmAtomicMsgQueue/cmake-build-debug/Makefile&quot;  VERBOSE=1 list_install_components"/>
+					<CompileFile command="/usr/bin/gmake -j2 -f &quot;/home/user/mq_libraries/ShmAtomicMsgQueue/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j2 -f &quot;/home/user/mq_libraries/ShmAtomicMsgQueue/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j2 -f &quot;/home/user/mq_libraries/ShmAtomicMsgQueue/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="install">
+				<Option working_dir="/home/user/mq_libraries/ShmAtomicMsgQueue/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j2 -f &quot;/home/user/mq_libraries/ShmAtomicMsgQueue/cmake-build-debug/Makefile&quot;  VERBOSE=1 install"/>
+					<CompileFile command="/usr/bin/gmake -j2 -f &quot;/home/user/mq_libraries/ShmAtomicMsgQueue/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j2 -f &quot;/home/user/mq_libraries/ShmAtomicMsgQueue/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j2 -f &quot;/home/user/mq_libraries/ShmAtomicMsgQueue/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="install/local">
+				<Option working_dir="/home/user/mq_libraries/ShmAtomicMsgQueue/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j2 -f &quot;/home/user/mq_libraries/ShmAtomicMsgQueue/cmake-build-debug/Makefile&quot;  VERBOSE=1 install/local"/>
+					<CompileFile command="/usr/bin/gmake -j2 -f &quot;/home/user/mq_libraries/ShmAtomicMsgQueue/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j2 -f &quot;/home/user/mq_libraries/ShmAtomicMsgQueue/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j2 -f &quot;/home/user/mq_libraries/ShmAtomicMsgQueue/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="install/strip">
+				<Option working_dir="/home/user/mq_libraries/ShmAtomicMsgQueue/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j2 -f &quot;/home/user/mq_libraries/ShmAtomicMsgQueue/cmake-build-debug/Makefile&quot;  VERBOSE=1 install/strip"/>
+					<CompileFile command="/usr/bin/gmake -j2 -f &quot;/home/user/mq_libraries/ShmAtomicMsgQueue/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j2 -f &quot;/home/user/mq_libraries/ShmAtomicMsgQueue/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j2 -f &quot;/home/user/mq_libraries/ShmAtomicMsgQueue/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="mqutils">
+				<Option output="/home/user/mq_libraries/ShmAtomicMsgQueue/cmake-build-debug/libmqutils.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/user/mq_libraries/ShmAtomicMsgQueue/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/opt/rh/devtoolset-3/root/usr/lib/gcc/x86_64-redhat-linux/4.9.2/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/opt/rh/devtoolset-3/root/usr/include"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/opt/rh/devtoolset-3/root/usr/lib/gcc/x86_64-redhat-linux/4.9.2/../../../../include/c++/4.9.2"/>
+					<Add directory="/opt/rh/devtoolset-3/root/usr/lib/gcc/x86_64-redhat-linux/4.9.2/../../../../include/c++/4.9.2/x86_64-redhat-linux"/>
+					<Add directory="/opt/rh/devtoolset-3/root/usr/lib/gcc/x86_64-redhat-linux/4.9.2/../../../../include/c++/4.9.2/backward"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j2 -f &quot;/home/user/mq_libraries/ShmAtomicMsgQueue/cmake-build-debug/Makefile&quot;  VERBOSE=1 mqutils"/>
+					<CompileFile command="/usr/bin/gmake -j2 -f &quot;/home/user/mq_libraries/ShmAtomicMsgQueue/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j2 -f &quot;/home/user/mq_libraries/ShmAtomicMsgQueue/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j2 -f &quot;/home/user/mq_libraries/ShmAtomicMsgQueue/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="mqutils/fast">
+				<Option output="/home/user/mq_libraries/ShmAtomicMsgQueue/cmake-build-debug/libmqutils.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/user/mq_libraries/ShmAtomicMsgQueue/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/opt/rh/devtoolset-3/root/usr/lib/gcc/x86_64-redhat-linux/4.9.2/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/opt/rh/devtoolset-3/root/usr/include"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/opt/rh/devtoolset-3/root/usr/lib/gcc/x86_64-redhat-linux/4.9.2/../../../../include/c++/4.9.2"/>
+					<Add directory="/opt/rh/devtoolset-3/root/usr/lib/gcc/x86_64-redhat-linux/4.9.2/../../../../include/c++/4.9.2/x86_64-redhat-linux"/>
+					<Add directory="/opt/rh/devtoolset-3/root/usr/lib/gcc/x86_64-redhat-linux/4.9.2/../../../../include/c++/4.9.2/backward"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j2 -f &quot;/home/user/mq_libraries/ShmAtomicMsgQueue/cmake-build-debug/Makefile&quot;  VERBOSE=1 mqutils/fast"/>
+					<CompileFile command="/usr/bin/gmake -j2 -f &quot;/home/user/mq_libraries/ShmAtomicMsgQueue/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j2 -f &quot;/home/user/mq_libraries/ShmAtomicMsgQueue/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j2 -f &quot;/home/user/mq_libraries/ShmAtomicMsgQueue/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="/home/user/mq_libraries/ShmAtomicMsgQueue/MessageQueue.h">
+			<Option target="mqutils"/>
+		</Unit>
+		<Unit filename="/home/user/mq_libraries/ShmAtomicMsgQueue/events.h">
+			<Option target="mqutils"/>
+		</Unit>
+		<Unit filename="/home/user/mq_libraries/ShmAtomicMsgQueue/shmIPC.h">
+			<Option target="mqutils"/>
+		</Unit>
+		<Unit filename="/home/user/mq_libraries/ShmAtomicMsgQueue/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>

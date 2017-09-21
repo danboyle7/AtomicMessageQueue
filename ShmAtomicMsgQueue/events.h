@@ -5,83 +5,96 @@
 #ifndef SHMATOMICMSGQUEUE_EVENTS_H
 #define SHMATOMICMSGQUEUE_EVENTS_H
 
-#include <sys/eventfd.h>
 #include <unistd.h>
 #include <pthread.h>
-#include <sys/poll.h>
+#include <sys/eventfd.h>
+#include <poll.h>
 
-//Types
+#include <boost/interprocess/sync/interprocess_condition.hpp>
+#include <boost/interprocess/sync/interprocess_mutex.hpp>
+#include <boost/interprocess/sync/scoped_lock.hpp>
+
+using namespace boost::interprocess;
 
 struct event_t {
     int state_;
-    int fd_;
-    pthread_mutex_t mtx_ = PTHREAD_MUTEX_INITIALIZER;
-
+    bool kill_;
+    interprocess_mutex mtx_;
+    interprocess_condition cond_;
 };
 
-    int CreateEvent(event_t *event) {
-    event->fd_ = eventfd(0, 0);
+// Might not need
+inline void CreateEvent(event_t *event) {
+    // Set the state to 0
     event->state_ = 0;
 }
 
-int SetEvent(event_t *event) {
-    pthread_mutex_lock(&event->mtx_);
+inline void SetEvent(event_t *event) {
+    // Lock mutex to eliminate posisble race conditions between setting and waiting on state
+    scoped_lock<interprocess_mutex> lock(event->mtx_);
 
-    //If the state is already 1, then it does not need to be set.
-    if(!event->state_) {
-        uint64_t set = 1;
-        ssize_t  sts = write(event->fd_, &set, sizeof(uint64_t));
-        event->state_ = 1;
-    }
+    // Set the event if it has not been already
+    __sync_bool_compare_and_swap(&event->state_, 0, 1);
 
-    pthread_mutex_lock(&event->mtx_);
+    // Notify anyone waiting
+    event->cond_.notify_all();
 }
 
 
-int ClearEvent(event_t *event) {
-    uint64_t clear = 0;
+inline ssize_t ClearEvent(event_t *event) {
+    scoped_lock<interprocess_mutex> lock(event->mtx_);
 
-    //Lock mutex to write to fd.
-    pthread_mutex_lock(&event->mtx_);
-    ssize_t  sts = write(event->fd_, &clear, sizeof(uint64_t));
-    event->state_ = 0;
-    pthread_mutex_unlock(&event->mtx_);
-
-    //Check if there was an error
-    if(sts == -1)
-        return -1;
-
-    //Success
-    return 0;
+    // Clear the event state if it has not been already
+    int ret = __sync_val_compare_and_swap(&event->state_, 1, 0);
 }
 
-//Return 1 for normal, 0 for timeout, -1 for error.
-int WaitForEvent(event_t *event, uint32_t msTimeout) {
-    struct pollfd ufds[1];
+// Return 1 for normal, 0 for timeout, -1 for error.
+inline ssize_t WaitForEvent(event_t *event, uint32_t msTimeout) {
 
-    //If the state is not set, wait.
+    // If the state is not already been set.
     if(!event->state_) {
-        ufds[0].fd = event->fd_;
-        ufds[0].events = POLLIN;
-        int sts = poll(ufds, 1, msTimeout);
+        bool ret = true;
 
-        //Check to see if a timeout occurred
-        if(sts <= 0)
-            return sts;
+        //Block for when to lock the mutex
+        { 
+            //Lock mutex to make sure no one touches the state 
+            scoped_lock<interprocess_mutex> lock(event->mtx_);
 
-        //Wait successful
-        ClearEvent(event);
-        return 1;
+            // Setup timeout value
+            boost::posix_time::ptime timeout = microsec_clock::universal_time() + boost::posix_time::milliseconds(msTimeout);
 
-    //If the state is already set, clear the event and return.
+            while(!event->state_ && ret && !event->kill_) {
+                // Wait (timed)
+                ret = event->cond_.timed_wait<scoped_lock<interprocess_mutex>>(lock, timeout);
+            }
+        }
+
+       //Clear the event and return 
+       ClearEvent(event);
+
+       //If kill is set, return -1
+       if(event->kill_) return -1;
+       
+       return ret ? 1 : 0;
+
+    // If state is already set, no need to block. Just clear event and continue.
     } else {
+
+        // Clear the event and then return true.
         ClearEvent(event);
+
+        // Return success
         return 1;
     }
 }
 
-int DestroyEvent() {
-    //TODO
-}
+// Wakes up anything waiting on this event (to prevent process getting stuck when the object is destructed)
+// The rest will be done by the event item constructor
+inline void DestroyEvent(event_t *event) {
+    //Set kill and Wake up the event
+    event->kill_ = true;
+
+    // Notify anyone waiting to wakeup
+    pthread_cond_broadcast(&event->cond_); 
 
 #endif //SHMATOMICMSGQUEUE_EVENTS_H

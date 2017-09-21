@@ -1,0 +1,3 @@
+
+
+g++ -g3 --std=c++11 main.cpp -o main -I /usr/local/include/boost -lrt -lpthread

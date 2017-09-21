@@ -56,6 +56,17 @@ CMAKE_BINARY_DIR = /home/user/mq_libraries/ShmAtomicMsgQueue/cmake-build-debug
 #=============================================================================
 # Targets provided globally by CMake.
 
+# Special rule for the target edit_cache
+edit_cache:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
+	/opt/clion-2016.3.3/bin/cmake/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+.PHONY : edit_cache
+
+# Special rule for the target edit_cache
+edit_cache/fast: edit_cache
+
+.PHONY : edit_cache/fast
+
 # Special rule for the target rebuild_cache
 rebuild_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
@@ -67,16 +78,49 @@ rebuild_cache/fast: rebuild_cache
 
 .PHONY : rebuild_cache/fast
 
-# Special rule for the target edit_cache
-edit_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
-	/opt/clion-2016.3.3/bin/cmake/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
-.PHONY : edit_cache
+# Special rule for the target install/local
+install/local: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
+	/opt/clion-2016.3.3/bin/cmake/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+.PHONY : install/local
 
-# Special rule for the target edit_cache
-edit_cache/fast: edit_cache
+# Special rule for the target install/local
+install/local/fast: install/local
 
-.PHONY : edit_cache/fast
+.PHONY : install/local/fast
+
+# Special rule for the target install/strip
+install/strip: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
+	/opt/clion-2016.3.3/bin/cmake/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+.PHONY : install/strip
+
+# Special rule for the target install/strip
+install/strip/fast: install/strip
+
+.PHONY : install/strip/fast
+
+# Special rule for the target list_install_components
+list_install_components:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Available install components are: \"Unspecified\""
+.PHONY : list_install_components
+
+# Special rule for the target list_install_components
+list_install_components/fast: list_install_components
+
+.PHONY : list_install_components/fast
+
+# Special rule for the target install
+install: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
+	/opt/clion-2016.3.3/bin/cmake/bin/cmake -P cmake_install.cmake
+.PHONY : install
+
+# Special rule for the target install
+install/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
+	/opt/clion-2016.3.3/bin/cmake/bin/cmake -P cmake_install.cmake
+.PHONY : install/fast
 
 # The main all target
 all: cmake_check_build_system
@@ -111,44 +155,17 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named ShmAtomicMsgQueue
+# Target rules for targets named HEADER_ONLY_TARGET
 
 # Build rule for target.
-ShmAtomicMsgQueue: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 ShmAtomicMsgQueue
-.PHONY : ShmAtomicMsgQueue
+HEADER_ONLY_TARGET: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 HEADER_ONLY_TARGET
+.PHONY : HEADER_ONLY_TARGET
 
 # fast build rule for target.
-ShmAtomicMsgQueue/fast:
-	$(MAKE) -f CMakeFiles/ShmAtomicMsgQueue.dir/build.make CMakeFiles/ShmAtomicMsgQueue.dir/build
-.PHONY : ShmAtomicMsgQueue/fast
-
-main.o: main.cpp.o
-
-.PHONY : main.o
-
-# target to build an object file
-main.cpp.o:
-	$(MAKE) -f CMakeFiles/ShmAtomicMsgQueue.dir/build.make CMakeFiles/ShmAtomicMsgQueue.dir/main.cpp.o
-.PHONY : main.cpp.o
-
-main.i: main.cpp.i
-
-.PHONY : main.i
-
-# target to preprocess a source file
-main.cpp.i:
-	$(MAKE) -f CMakeFiles/ShmAtomicMsgQueue.dir/build.make CMakeFiles/ShmAtomicMsgQueue.dir/main.cpp.i
-.PHONY : main.cpp.i
-
-main.s: main.cpp.s
-
-.PHONY : main.s
-
-# target to generate assembly for a file
-main.cpp.s:
-	$(MAKE) -f CMakeFiles/ShmAtomicMsgQueue.dir/build.make CMakeFiles/ShmAtomicMsgQueue.dir/main.cpp.s
-.PHONY : main.cpp.s
+HEADER_ONLY_TARGET/fast:
+	$(MAKE) -f CMakeFiles/HEADER_ONLY_TARGET.dir/build.make CMakeFiles/HEADER_ONLY_TARGET.dir/build
+.PHONY : HEADER_ONLY_TARGET/fast
 
 # Help Target
 help:
@@ -156,12 +173,13 @@ help:
 	@echo "... all (the default if no target is provided)"
 	@echo "... clean"
 	@echo "... depend"
-	@echo "... rebuild_cache"
 	@echo "... edit_cache"
-	@echo "... ShmAtomicMsgQueue"
-	@echo "... main.o"
-	@echo "... main.i"
-	@echo "... main.s"
+	@echo "... rebuild_cache"
+	@echo "... install/local"
+	@echo "... install/strip"
+	@echo "... list_install_components"
+	@echo "... install"
+	@echo "... HEADER_ONLY_TARGET"
 .PHONY : help
 
 

@@ -60,39 +60,39 @@ CMAKE_SOURCE_DIR = /home/user/mq_libraries/ShmAtomicMsgQueue
 CMAKE_BINARY_DIR = /home/user/mq_libraries/ShmAtomicMsgQueue/cmake-build-debug
 
 #=============================================================================
-# Target rules for target CMakeFiles/ShmAtomicMsgQueue.dir
+# Target rules for target CMakeFiles/HEADER_ONLY_TARGET.dir
 
 # All Build rule for target.
-CMakeFiles/ShmAtomicMsgQueue.dir/all:
-	$(MAKE) -f CMakeFiles/ShmAtomicMsgQueue.dir/build.make CMakeFiles/ShmAtomicMsgQueue.dir/depend
-	$(MAKE) -f CMakeFiles/ShmAtomicMsgQueue.dir/build.make CMakeFiles/ShmAtomicMsgQueue.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/user/mq_libraries/ShmAtomicMsgQueue/cmake-build-debug/CMakeFiles --progress-num=1,2 "Built target ShmAtomicMsgQueue"
-.PHONY : CMakeFiles/ShmAtomicMsgQueue.dir/all
+CMakeFiles/HEADER_ONLY_TARGET.dir/all:
+	$(MAKE) -f CMakeFiles/HEADER_ONLY_TARGET.dir/build.make CMakeFiles/HEADER_ONLY_TARGET.dir/depend
+	$(MAKE) -f CMakeFiles/HEADER_ONLY_TARGET.dir/build.make CMakeFiles/HEADER_ONLY_TARGET.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/user/mq_libraries/ShmAtomicMsgQueue/cmake-build-debug/CMakeFiles --progress-num=1 "Built target HEADER_ONLY_TARGET"
+.PHONY : CMakeFiles/HEADER_ONLY_TARGET.dir/all
 
 # Include target in all.
-all: CMakeFiles/ShmAtomicMsgQueue.dir/all
+all: CMakeFiles/HEADER_ONLY_TARGET.dir/all
 
 .PHONY : all
 
 # Build rule for subdir invocation for target.
-CMakeFiles/ShmAtomicMsgQueue.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/user/mq_libraries/ShmAtomicMsgQueue/cmake-build-debug/CMakeFiles 2
-	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/ShmAtomicMsgQueue.dir/all
+CMakeFiles/HEADER_ONLY_TARGET.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/user/mq_libraries/ShmAtomicMsgQueue/cmake-build-debug/CMakeFiles 1
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/HEADER_ONLY_TARGET.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/user/mq_libraries/ShmAtomicMsgQueue/cmake-build-debug/CMakeFiles 0
-.PHONY : CMakeFiles/ShmAtomicMsgQueue.dir/rule
+.PHONY : CMakeFiles/HEADER_ONLY_TARGET.dir/rule
 
 # Convenience name for target.
-ShmAtomicMsgQueue: CMakeFiles/ShmAtomicMsgQueue.dir/rule
+HEADER_ONLY_TARGET: CMakeFiles/HEADER_ONLY_TARGET.dir/rule
 
-.PHONY : ShmAtomicMsgQueue
-
-# clean rule for target.
-CMakeFiles/ShmAtomicMsgQueue.dir/clean:
-	$(MAKE) -f CMakeFiles/ShmAtomicMsgQueue.dir/build.make CMakeFiles/ShmAtomicMsgQueue.dir/clean
-.PHONY : CMakeFiles/ShmAtomicMsgQueue.dir/clean
+.PHONY : HEADER_ONLY_TARGET
 
 # clean rule for target.
-clean: CMakeFiles/ShmAtomicMsgQueue.dir/clean
+CMakeFiles/HEADER_ONLY_TARGET.dir/clean:
+	$(MAKE) -f CMakeFiles/HEADER_ONLY_TARGET.dir/build.make CMakeFiles/HEADER_ONLY_TARGET.dir/clean
+.PHONY : CMakeFiles/HEADER_ONLY_TARGET.dir/clean
+
+# clean rule for target.
+clean: CMakeFiles/HEADER_ONLY_TARGET.dir/clean
 
 .PHONY : clean
 

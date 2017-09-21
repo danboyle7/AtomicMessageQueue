@@ -2,49 +2,29 @@
 // Created by user on 8/1/17.
 //
 
-#ifndef SHMIPC_MESSAGEQUEUE_H
-#define SHMIPC_MESSAGEQUEUE_H
+#ifndef SHMIPC_MESSAGEQUEUE2_H
+#define SHMIPC_MESSAGEQUEUE2_H
 
 //C system defined includes
-#include <mqueue.h>
 #include <csignal>
 #include <cstdint>
 #include <climits>
 
 //C++ system defined includes
 #include <string>
-#include <iostream>
 #include <algorithm>
 
 //User defined includes
-#include "shmIPC.h"
+#include <boost/interprocess/ipc/message_queue.hpp>
+// #include "boostmq.hpp"
 
-// //use clauses
-// using namespace boost::interprocess;
+//use clauses
+using namespace boost::interprocess;
 
 //Defines and typedefs
 
 // MessageQueue class
-template <int MSG_SIZE, int MAX_MSGS>
 class MessageQueue {
-
-/***********************************************************************************
- *                     -- Private Class Members (MessageQueue) --                  *
- ***********************************************************************************/
-
-private:
-
-    //While one is uses will depend on whether this MessageQueue is a server / clientQueue_
-    uint32_t timeout_ = INT32_MAX;
-    int max_queue_msgs_ = MAX_MSGS;
-    int max_queue_msg_size_ = MSG_SIZE;
-    ShmQueue<MSG_SIZE,MAX_MSGS> *queue_;
-    std::string shared_path_ = "NULL";
-
-    //Status
-    bool connected_;
-
-
 public:
 
 /***********************************************************************************
@@ -64,15 +44,19 @@ public:
     /*
      * Function name: MessageQueue (MessageQueue)
      * ------------------------------
-     * Description:  MessageQueue Constructor. It sets appropriate member fields.
-     * Parameters:   path - path for shared memory queue
-     * Return value: Nothing.
-     */
-    MessageQueue(std::string path) {
-        // Initialize class variables
-        queue_ = NULL;
+    * Description:  MessageQueue Constructor. It sets appropriate member fields.
+    * Parameters:   TODO
+    * Return value: Nothing.
+    */
+    MessageQueue(std::string path, int max_msgs, int msg_size, int flags) {
+        //Set attributes for the queue
+        max_queue_msgs_ = max_msgs;
+        max_queue_msg_size_ = msg_size;
+
+        //Set additional class variables
         shared_path_ = path;
         connected_ = false;
+
     }
 
 
@@ -84,7 +68,7 @@ public:
      * Return value: Nothing
      */
     ~MessageQueue() {
-        disconnect();
+        closeQueue();
     }
 
 /***********************************************************************************
@@ -101,7 +85,7 @@ public:
 
         try {
             //Create the queue
-            queue_ = new ShmQueue<MSG_SIZE,MAX_MSGS>(shared_path_);
+            queue_ = new message_queue(open_or_create, shared_path_.c_str(), max_queue_msgs_, max_queue_msg_size_);
 
         } catch(std::exception &e) {
             std::cout << "Here? " << e.what() << std::endl; //TODO: remote later
@@ -109,8 +93,11 @@ public:
         };
 
         //Set connected to true
-        connected_ = true;
+        if(queue_ == nullptr) {
+            return -1;
+        }
 
+        connected_ = true;
         return 0;
     }
 
@@ -149,13 +136,14 @@ public:
 
         try {
             // Write (send) the buffer to the queue.
-            int sts = queue_->write(buffer, (uint32_t ) msg_length, timeout_);
+            boost::posix_time::ptime timeout = microsec_clock::universal_time() + boost::posix_time::milliseconds(timeout_);
+            int sts = queue_->try_send(buffer, (uint32_t ) msg_length, priority);//, timeout);
 
             // Timeout was reached
             if(0 == sts) return 0;
 
                 //The full message was not sent, return failure.
-            else if (sts != msg_length) return -1;
+            else return 1;
 
         } catch(...) {
             std::cout << "Exception caught in MessageQueue::send()" << std::endl;
@@ -184,12 +172,17 @@ public:
         if(!connected_) return -1;
 
         try {
+            message_queue::size_type recvd_size = 0;
+
+            unsigned int prio = 0;
 
             // Get the next message in the queue.
-            ret_val = (int) queue_->read(buffer, (uint32_t) MSG_SIZE, timeout_); //todo change return type
+            boost::posix_time::ptime timeout = microsec_clock::universal_time() + boost::posix_time::milliseconds(timeout_);
+            ret_val = (int) queue_->timed_receive(buffer,max_queue_msg_size_, recvd_size, prio, timeout); //todo change return type
 
             // Timeout was reached
             if(!ret_val) return 0;
+            else ret_val = (int) recvd_size;
 
         } catch(...) {
             std::cout << "Exception caught in MessageQueue::receive()" << std::endl;
@@ -229,7 +222,7 @@ public:
 
         //Get the size of the mapped queue
         try {
-            return queue_->getMsgCount();
+            return queue_->get_num_msg();
         } catch(...) {
             std::cout << "Exception caught in MessageQueue::getMessageCount()" << std::endl;
             return  -1;
@@ -245,55 +238,46 @@ public:
      * Return value: Nothing
      */
     void clearQueue() {
-        // Check if the queue is connected
+        // Check if themax_queue_msg_size_ queue is connected
         if(!connected_) {
-            char buffer[MSG_SIZE]; //TODO: change when template is added
+            char *buffer = new char[max_queue_msg_size_]; //TODO: change when template is added
 
             // Loop through the queue til it is empty
-            while(queue_->getMsgCount() > 0) {
-                queue_->read(buffer,8192, 0);
+            while(getMessageCount() > 0) {
+                message_queue::size_type recvd_size = 0;
+                unsigned int temp = 0;
+                queue_->try_receive(buffer,max_queue_msg_size_, recvd_size, temp);
             }
+            
+            //Delete the buffer
+            delete buffer;
         }
+
 
     }
 
 
     /*
-     * Function name: close (MessageQueue)
+     * Function name: closeQueue (MessageQueue)
      * ------------------------------
-     * Description:  Removes queue from the system.
+     * Description:  Removes signal notifications for the queue, removes it from the system
+     *               and then closes the file descriptor corresponding to the queue.
      * Parameters:   None
      * Return value: Nothing
      */
-    void close() {
+    void closeQueue() {
         try {
-            if(queue_!= nullptr) {
+            //Close the queue
+            //queue_->close();
 
-                //Remove dynamically allocaed memory
+            //Remove dynamically allocaed memory
+            if(queue_) {
                 delete queue_;
                 queue_ = nullptr;
             }
-            //Catch any exceptions thrown
-        } catch (...) { }
-    }
 
-        /*
-     * Function name: closeQueue (MessageQueue)
-     * ------------------------------
-     * Description:  Removes queue from the system.
-     * Parameters:   None
-     * Return value: Nothing
-     */
-    void disconnect() {
-        try {
-            if(connected_ && queue_!= nullptr) {
-
-                //Call Disonnect on the underlying queue mechanism
-                queue_->disconnect();
-
-                //Set to disconnected
-                connected_ = false;
-            }
+            //Remove the queue from the system
+            message_queue::remove(shared_path_.c_str());
             //Catch any exceptions thrown
         } catch (...) { }
     }
@@ -324,10 +308,23 @@ public:
      * Return value: Nothing
      */
     static void removeOldQueues(std::string path) {
-        ShmQueue<MSG_SIZE,MAX_MSGS>::removeOldQueues(path); //todo: fill in with template param.
+        message_queue::remove(path.c_str()); //todo: fill in with template param.
     }
+
+
+private:
+
+    //While one is uses will depend on whether this MessageQueue is a server / clientQueue_
+    uint32_t timeout_ = INT32_MAX;
+    int max_queue_msgs_;
+    int max_queue_msg_size_;
+    message_queue *queue_;
+    std::string shared_path_ = "NULL";
+
+    //Status
+    bool connected_;
 
 
 };
 
-#endif //SHMIPC_MESSAGEQUEUE_H
+#endif //SHMIPC_MESSAGEQUEUE2_H

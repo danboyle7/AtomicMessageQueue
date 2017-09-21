@@ -44,5 +44,5 @@ set(CMAKE_MAKEFILE_PRODUCTS
 
 # Dependency information for all targets:
 set(CMAKE_DEPEND_INFO_FILES
-  "CMakeFiles/ShmAtomicMsgQueue.dir/DependInfo.cmake"
+  "CMakeFiles/HEADER_ONLY_TARGET.dir/DependInfo.cmake"
   )
